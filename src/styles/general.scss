@@ -1,0 +1,17 @@
+@use "./partials/variables" as *;
+@use"./partials/mixin" as *;
+@import "node_modules/bootstrap/scss/bootstrap";
+
+@import "@fontsource/montserrat";
+@import "@fontsource/montserrat/700.css";
+
+
+body {
+
+    font-family: "montserrat", sans-serif;
+
+    p {
+        color: $bg-subTitle;
+    }
+
+}
