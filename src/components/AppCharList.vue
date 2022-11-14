@@ -24,9 +24,8 @@ export default {
         </div>
         <div class="ms-box-char-small">
             <div class="container-fluid pt-2">
-                <div class="row row-cols-6 justify-content-between">
-                    <div class="col" v-for="element in store.characters.filter(char => char.char_id < 6)"
-                        :key="element.char_id">
+                <div class="row  ms-overflow flex-wrap">
+                    <div class="col-2 ms-margin" v-for="element in store.characters" :key="element.char_id">
                         <AppCharacter :character="element" />
                     </div>
                 </div>
@@ -46,6 +45,8 @@ export default {
     margin: 0 auto;
     padding: 2rem 2rem 1rem 2rem;
     background-color: white;
+    height: 100%;
+    overflow-y: auto;
 
     .char-news {
         color: white;
@@ -59,9 +60,24 @@ export default {
         background-color: white;
     }
 
-    .col {
+    .col-2 {
         min-height: 100px;
         background-color: $bg-app;
+
+        &.ms-right-not {
+            margin-right: 0;
+        }
+
+        &.ms-margin {
+            margin-right: calc(100% / 24 * 1);
+            margin-bottom: calc(100% / 24 * 1);
+
+
+        }
+
+        &.ms-margin:nth-of-type(5n) {
+            margin-right: 0px;
+        }
 
     }
 }

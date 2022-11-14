@@ -11,7 +11,7 @@ export default {
 </script>
 <template>
     <div class="ms-bd-card">
-        <img :src="character.img" alt="`foto di ${character.name}`">
+        <img :src="character.img" :alt="`foto di ${character.name}`">
         <p class="char-name ms-sub">{{ character.name }}</p>
         <p class="ms-sub ms-cat">{{ character.category }}</p>
         <p class="ms-sub">{{ character.status }}</p>

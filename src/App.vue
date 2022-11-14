@@ -2,31 +2,47 @@
 import { store } from "./store";
 import Appheader from './components/Appheader.vue';
 import AppCharList from './components/AppCharList.vue';
+import AppChoiceSerie from "./components/AppChoiceSerie.vue";
 export default {
   components: {
     Appheader,
-    AppCharList
+    AppCharList,
+    AppChoiceSerie
   },
   data() {
     return {
       store,
-      hasDataBeenFetch: false
+      hasDataBeenFetch: null
     }
   },
   created: function () {
-    fetch("https://www.breakingbadapi.com/api/characters")
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        this.store.characters = data;
-      })
-      .finally(() => this.hasDataBeenFetch = true)
+    this.getCharacterList();
+  },
+  methods: {
+    printName: function () {
+      console.log(store.serieName);
+    },
+    getCharacterList() {
+      this.hasDataBeenFetch = false;
+      let stringUrl = "https://www.breakingbadapi.com/api/characters";
+      this.store.serieName ? stringUrl += `?category=${this.store.serieName}` : stringUrl;
+
+      fetch(stringUrl)
+        .then(resp => resp.json())
+        .then(data => this.store.characters = data)
+        .finally(() => this.hasDataBeenFetch = true)
+    }
   }
-}</script>
+
+
+}
+
+</script>
 <template>
   <div class="wrapper">
     <div class="container d-flex flex-column ">
       <Appheader />
+      <AppChoiceSerie @selectSerie="getCharacterList" />
       <main>
         <div class="loader d-flex flex-column align-items-center justify-content-center" v-if="!hasDataBeenFetch">
           <div class="rotate">
@@ -63,6 +79,7 @@ export default {
     margin-top: 50px;
     min-height: 400px;
     position: relative;
+    overflow-y: auto;
 
     .loader {
       height: 400px;
